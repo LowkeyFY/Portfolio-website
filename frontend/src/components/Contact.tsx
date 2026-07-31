@@ -6,9 +6,12 @@ export default function Contact() {
   const { register, handleSubmit, reset, formState: { isSubmitting, isSubmitSuccessful } } = useForm<ContactFormData>();
 
   const onSubmit = async (data: ContactFormData) => {
-    // TODO: wire to backend /contact endpoint once built
-    console.log("Contact form submitted:", data);
-    await new Promise((resolve) => setTimeout(resolve, 500));
+    const res = await fetch(`${import.meta.env.VITE_API_URL}/api/contact`, {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(data),
+    });
+    if (!res.ok) throw new Error("Failed to send message");
     reset();
   };
 
