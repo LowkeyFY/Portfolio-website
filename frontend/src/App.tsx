@@ -3,7 +3,6 @@ import Hero from "./components/Hero";
 import About from "./components/About";
 import Skills from "./components/Skills";
 import Projects from "./components/Projects";
-import DesignsShowcase from "./components/DesignsShowcase";
 import DesignWork from "./components/DesignWork";
 import Contact from "./components/Contact";
 import Footer from "./components/Footer";
