@@ -1,15 +1,14 @@
 export default function Hero() {
   return (
     <section className="min-h-screen flex flex-col justify-center px-6 max-w-5xl mx-auto">
-      <p className="font-body text-accent mb-4 tracking-wide">Lagos, Nigeria</p>
+      <p className="font-body text-accent mb-4 tracking-wide">Lagos, Nigeria · Computer Science Student</p>
       <h1 className="font-display font-bold text-5xl md:text-7xl text-fg leading-tight">
-        Full-stack developer.
+        Graphic Designer.
         <br />
-        Designer at heart.
+        Frontend Developer.
       </h1>
       <p className="mt-6 text-lg text-muted max-w-xl">
-        I build full-stack products end-to-end and run FY Creative Studio,
-        a design practice for brands that need to look as sharp as they perform.
+        I bridge creativity and technology, designing digital experiences and building responsive web applications that solve real problems. Currently expanding into React, FastAPI, and full-stack development.
       </p>
       <div className="mt-8 flex gap-4">
         <a href="#projects" className="bg-accent text-bg px-6 py-3 rounded-full font-medium hover:opacity-90">
