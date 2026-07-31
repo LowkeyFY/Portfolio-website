@@ -1,9 +1,9 @@
 const projects = [
-  { name: "UniApply NG", description: "Nigerian university admission assistant. FastAPI + PostgreSQL/SQLAlchemy backend with JWT auth, an eligibility engine, and document upload with OCR fallback and Celery/Redis async processing.", tags: ["FastAPI", "PostgreSQL", "React", "Celery"], link: "https://github.com/LowkeyFY" },
-  { name: "Phishing Email Detector", description: "ML model fine-tuned on DistilBERT over a 10,000-email labeled dataset, built across four Colab notebooks with a Gradio demo.", tags: ["Python", "DistilBERT", "Gradio"], link: "https://github.com/LowkeyFY" },
-  { name: "IKSYLvester & Co Furniture", description: "Furniture e-commerce site for a Lagos business, with a Paystack 75% deposit payment flow and WhatsApp order confirmation.", tags: ["HTML/CSS/JS", "Paystack"], link: "https://github.com/LowkeyFY" },
-  { name: "FY Creative Studio", description: "Dark, lime-green brand site with a custom animated cursor, lightbox project gallery, and Formspree contact form.", tags: ["HTML/CSS", "Formspree"], link: "https://github.com/LowkeyFY" },
-  { name: "Weather App", description: "A simple JavaScript weather app pulling live conditions from a public API.", tags: ["JavaScript"], link: "https://github.com/LowkeyFY" },
+  { name: "UniApply NG", description: "Nigerian university admission assistant. FastAPI + PostgreSQL/SQLAlchemy backend with JWT auth, an eligibility engine, and document upload with OCR fallback and Celery/Redis async processing.", tags: ["FastAPI", "PostgreSQL", "React", "Celery"], link: "" },
+  { name: "Phishing Email Detector", description: "ML model fine-tuned on DistilBERT over a 10,000-email labeled dataset, built across four Colab notebooks with a Gradio demo.", tags: ["Python", "DistilBERT", "Gradio"], link: "" },
+  { name: "IKSYLvester & Co Furniture", description: "Furniture e-commerce site for a Lagos business, with a Paystack 75% deposit payment flow and WhatsApp order confirmation.", tags: ["HTML/CSS/JS", "Paystack"], link: "https://github.com/LowkeyFY/IK-sylvester" },
+  { name: "FY Creative Studio", description: "Dark, lime-green brand site with a custom animated cursor, lightbox project gallery, and Formspree contact form.", tags: ["HTML/CSS", "Formspree"], link: "https://lowkeyfy.github.io/FYCREATIVESTUDIO/" },
+  { name: "Weather App", description: "A simple JavaScript weather app pulling live conditions from a public API.", tags: ["JavaScript"], link: "https://github.com/LowkeyFY/WEATHER_app" },
 ];
 
 export default function Projects() {
