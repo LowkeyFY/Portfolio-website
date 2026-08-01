@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { fetchDashboard, logout } from '../services/api';
-import { LogOut, Users, Eye, MessageSquare, Clock } from 'lucide-react';
+import { LogOut, Users, Eye, MessageSquare, Clock, AlertCircle } from 'lucide-react';
 
 interface Message {
   id: number;
@@ -33,12 +33,17 @@ export default function AdminDashboard() {
       const data = await fetchDashboard();
       setMessages(data.messages);
       setStats(data.stats);
-    } catch {
-      setError('Session expired. Please login again.');
-      setTimeout(() => {
-        logout();
-        navigate('/admin/login');
-      }, 2000);
+    } catch (err: any) {
+      const msg = err.message || 'Unknown error';
+      if (msg.includes('Unauthorized') || msg.includes('401')) {
+        setError('Session expired. Redirecting to login...');
+        setTimeout(() => {
+          logout();
+          navigate('/admin/login');
+        }, 2000);
+      } else {
+        setError(`Failed to load dashboard: ${msg}`);
+      }
     } finally {
       setLoading(false);
     }
@@ -74,8 +79,16 @@ export default function AdminDashboard() {
 
       <main className="max-w-6xl mx-auto px-6 py-8">
         {error && (
-          <div className="mb-6 p-4 rounded-xl bg-red-500/10 border border-red-500/20 text-red-400 text-sm">
-            {error}
+          <div className="mb-6 p-4 rounded-xl bg-red-500/10 border border-red-500/20 text-red-400 text-sm flex items-start gap-3">
+            <AlertCircle size={18} className="shrink-0 mt-0.5" />
+            <div>
+              <p className="font-medium">{error}</p>
+              {error.includes('Failed to load') && (
+                <p className="mt-1 text-xs opacity-80">
+                  Check browser console (F12) for details. If CORS error, wait 2 minutes for backend redeploy.
+                </p>
+              )}
+            </div>
           </div>
         )}
 
@@ -134,9 +147,11 @@ export default function AdminDashboard() {
                       <td className="px-6 py-4 font-medium text-fg">{m.name}</td>
                       <td className="px-6 py-4 text-muted">{m.email}</td>
                       <td className="px-6 py-4 text-muted max-w-xs truncate">{m.message}</td>
-                      <td className="px-6 py-4 text-muted whitespace-nowrap flex items-center gap-1">
-                        <Clock size={12} />
-                        {new Date(m.createdAt).toLocaleDateString()}
+                      <td className="px-6 py-4 text-muted whitespace-nowrap">
+                        <span className="flex items-center gap-1">
+                          <Clock size={12} />
+                          {new Date(m.createdAt).toLocaleDateString()}
+                        </span>
                       </td>
                     </tr>
                   ))
