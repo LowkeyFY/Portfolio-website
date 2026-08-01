@@ -27,7 +27,7 @@ export default function DesignWork() {
         {designs.map((d) => (
           <div
             key={d.id}
-            className="group overflow-hidden rounded-2xl bg-surface border border-surface hover:border-accent transition-colors"
+            className="group overflow-hidden rounded-2xl bg-surface border border-surface hover:border-accent transition-colors shadow-lg shadow-black/5 hover:shadow-xl hover:shadow-black/10"
           >
             <div className="aspect-[4/5] overflow-hidden">
               <img

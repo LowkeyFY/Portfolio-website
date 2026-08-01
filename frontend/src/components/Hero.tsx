@@ -1,6 +1,9 @@
+import AnimatedGradient from "./components/AnimatedGradient";
+
 export default function Hero() {
   return (
-    <section className="min-h-screen flex flex-col justify-center px-6 max-w-5xl mx-auto">
+    <section className="relative min-h-screen flex flex-col justify-center px-6 max-w-5xl mx-auto pt-24">
+      <AnimatedGradient />
       <p className="font-body text-accent mb-4 tracking-wide">Lagos, Nigeria · Computer Science Student</p>
       <h1 className="font-display font-bold text-5xl md:text-7xl text-fg leading-tight">
         Graphic Designer.

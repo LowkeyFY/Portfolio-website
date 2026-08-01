@@ -14,7 +14,7 @@ export default function Projects() {
         {projects.map((project) => (
           <div
             key={project.name}
-            className="flex flex-col bg-surface rounded-2xl p-6 hover:-translate-y-1 transition-transform"
+            className="flex flex-col bg-surface rounded-2xl p-6 hover:-translate-y-1 transition-transform shadow-lg shadow-black/5 hover:shadow-xl hover:shadow-black/10 border border-surface/50"
           >
             <h3 className="font-display text-xl text-fg mb-2">{project.name}</h3>
             <p className="text-muted text-sm mb-4 flex-grow">{project.description}</p>
