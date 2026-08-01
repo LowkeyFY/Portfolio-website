@@ -12,15 +12,32 @@ export default function Projects() {
       <h2 className="font-display font-bold text-accent text-sm tracking-widest uppercase mb-10">Software Projects</h2>
       <div className="grid md:grid-cols-2 gap-6">
         {projects.map((project) => (
-          <a key={project.name} href={project.link} target="_blank" rel="noopener noreferrer" className="block bg-surface rounded-2xl p-6 hover:-translate-y-1 transition-transform">
+          <div
+            key={project.name}
+            className="flex flex-col bg-surface rounded-2xl p-6 hover:-translate-y-1 transition-transform"
+          >
             <h3 className="font-display text-xl text-fg mb-2">{project.name}</h3>
-            <p className="text-muted text-sm mb-4">{project.description}</p>
-            <div className="flex flex-wrap gap-2">
+            <p className="text-muted text-sm mb-4 flex-grow">{project.description}</p>
+            <div className="flex flex-wrap gap-2 mb-4">
               {project.tags.map((tag) => (
                 <span key={tag} className="text-xs text-accent border border-accent/30 rounded-full px-2 py-1">{tag}</span>
               ))}
             </div>
-          </a>
+            {project.link ? (
+              <a
+                href={project.link}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="self-start text-sm font-medium text-accent hover:underline"
+              >
+                View Project →
+              </a>
+            ) : (
+              <span className="self-start text-xs font-medium text-muted border border-muted/30 rounded-full px-3 py-1">
+                Coming Soon
+              </span>
+            )}
+          </div>
         ))}
       </div>
     </section>
