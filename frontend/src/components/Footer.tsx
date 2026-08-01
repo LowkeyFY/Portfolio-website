@@ -45,11 +45,11 @@ const socials = [
 export default function Footer() {
   return (
     <footer className="px-6 max-w-5xl mx-auto py-12 border-t border-surface">
-      <div className="flex flex-col md:flex-row items-center justify-between gap-6">
-        <p className="text-muted text-sm">
+      <div className="flex flex-col items-center gap-6">
+        <p className="text-muted text-sm text-center">
           © 2025 OKORIE Ifeanyi · FY Creative Studios · FY Devs
         </p>
-        <div className="flex items-center gap-3">
+        <div className="flex flex-col items-center gap-3">
           {socials.map((social) => (
             <a
               key={social.name}
