@@ -1,3 +1,5 @@
+import { useGitHubStats } from '../hooks/useGitHubStats';
+
 const projects = [
   {
     name: 'UniApply NG',
@@ -5,6 +7,7 @@ const projects = [
     tags: ['FastAPI', 'PostgreSQL', 'React', 'Celery'],
     link: '',
     status: 'In Development',
+    githubRepo: null,
   },
   {
     name: 'Phishing Email Detector',
@@ -12,6 +15,7 @@ const projects = [
     tags: ['Python', 'DistilBERT', 'Gradio'],
     link: '',
     status: 'Coming Soon',
+    githubRepo: null,
   },
   {
     name: 'IKSYLvester & Co Furniture',
@@ -19,6 +23,7 @@ const projects = [
     tags: ['HTML/CSS/JS', 'Paystack'],
     link: 'https://github.com/LowkeyFY/IK-sylvester',
     status: 'Live',
+    githubRepo: 'LowkeyFY/IK-sylvester',
   },
   {
     name: 'FY Creative Studio',
@@ -26,6 +31,7 @@ const projects = [
     tags: ['HTML/CSS', 'Formspree'],
     link: 'https://lowkeyfy.github.io/FYCREATIVESTUDIO/',
     status: 'Live',
+    githubRepo: 'LowkeyFY/FYCREATIVESTUDIO',
   },
   {
     name: 'Weather App',
@@ -33,10 +39,22 @@ const projects = [
     tags: ['JavaScript'],
     link: 'https://github.com/LowkeyFY/WEATHER_app',
     status: 'Live',
+    githubRepo: 'LowkeyFY/WEATHER_app',
   },
 ];
 
+const StarIcon = () => (
+  <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor" stroke="none"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+);
+
+const ForkIcon = () => (
+  <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><circle cx="12" cy="18" r="3"/><circle cx="6" cy="6" r="3"/><circle cx="18" cy="6" r="3"/><path d="M6 9v3a3 3 0 0 0 3 3h6a3 3 0 0 0 3-3V9"/><path d="M12 15V9"/></svg>
+);
+
 export default function Projects() {
+  const repos = projects.map(p => p.githubRepo).filter(Boolean) as string[];
+  const { data: stats, loading } = useGitHubStats(repos);
+
   return (
     <section id="projects" className="px-6 max-w-5xl mx-auto py-24">
       <h2 className="font-display font-bold text-accent text-sm tracking-widest uppercase mb-4">
@@ -47,43 +65,83 @@ export default function Projects() {
       </p>
 
       <div className="grid md:grid-cols-2 gap-6">
-        {projects.map((project) => (
-          <div
-            key={project.name}
-            className="flex flex-col bg-surface rounded-2xl p-6 hover:-translate-y-1 transition-transform shadow-lg shadow-black/5 hover:shadow-xl hover:shadow-black/10 border border-surface/50"
-          >
-            <div className="flex items-start justify-between mb-2">
-              <h3 className="font-display text-xl text-fg">{project.name}</h3>
-              {project.status !== 'Live' && (
-                <span className="text-xs font-medium text-muted border border-muted/20 rounded-full px-2 py-0.5">
+        {projects.map((project) => {
+          const isLive = project.status === 'Live';
+          const repoStats = project.githubRepo ? stats[project.githubRepo] : null;
+          const hasStats = repoStats && !loading;
+
+          return (
+            <div
+              key={project.name}
+              className={`flex flex-col bg-surface rounded-2xl p-6 transition-all border border-surface/50 ${
+                isLive 
+                  ? 'hover:-translate-y-1 shadow-lg shadow-black/5 hover:shadow-xl hover:shadow-black/10' 
+                  : 'opacity-60 hover:opacity-80'
+              }`}
+            >
+              <div className="flex items-start justify-between mb-2">
+                <h3 className="font-display text-xl text-fg">{project.name}</h3>
+                <span className={`text-xs font-medium rounded-full px-2 py-0.5 border ${
+                  isLive 
+                    ? 'text-accent border-accent/30' 
+                    : 'text-muted border-muted/20'
+                }`}>
                   {project.status}
+                </span>
+              </div>
+              <p className="text-muted text-sm mb-4 flex-grow leading-relaxed">{project.description}</p>
+              
+              <div className="flex flex-wrap gap-2 mb-4">
+                {project.tags.map((tag) => (
+                  <span key={tag} className="text-xs text-accent border border-accent/30 rounded-full px-2 py-1">
+                    {tag}
+                  </span>
+                ))}
+              </div>
+
+              {/* GitHub Live Stats */}
+              {hasStats && (
+                <div className="flex items-center gap-4 mb-3 text-xs text-muted">
+                  {repoStats.stars > 0 && (
+                    <span className="flex items-center gap-1">
+                      <StarIcon />
+                      <span className="text-fg font-medium">{repoStats.stars}</span>
+                      <span>stars</span>
+                    </span>
+                  )}
+                  {repoStats.forks > 0 && (
+                    <span className="flex items-center gap-1">
+                      <ForkIcon />
+                      <span className="text-fg font-medium">{repoStats.forks}</span>
+                      <span>forks</span>
+                    </span>
+                  )}
+                  {repoStats.language && (
+                    <span className="flex items-center gap-1.5">
+                      <span className="w-2 h-2 rounded-full bg-accent" />
+                      {repoStats.language}
+                    </span>
+                  )}
+                </div>
+              )}
+
+              {project.link ? (
+                <a
+                  href={project.link}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="self-start text-sm font-medium text-accent hover:underline"
+                >
+                  View Project →
+                </a>
+              ) : (
+                <span className="self-start text-xs font-medium text-muted border border-muted/30 rounded-full px-3 py-1">
+                  Coming Soon
                 </span>
               )}
             </div>
-            <p className="text-muted text-sm mb-4 flex-grow leading-relaxed">{project.description}</p>
-            <div className="flex flex-wrap gap-2 mb-4">
-              {project.tags.map((tag) => (
-                <span key={tag} className="text-xs text-accent border border-accent/30 rounded-full px-2 py-1">
-                  {tag}
-                </span>
-              ))}
-            </div>
-            {project.link ? (
-              <a
-                href={project.link}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="self-start text-sm font-medium text-accent hover:underline"
-              >
-                View Project →
-              </a>
-            ) : (
-              <span className="self-start text-xs font-medium text-muted border border-muted/30 rounded-full px-3 py-1">
-                Coming Soon
-              </span>
-            )}
-          </div>
-        ))}
+          );
+        })}
       </div>
     </section>
   );

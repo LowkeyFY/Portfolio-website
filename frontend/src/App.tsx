@@ -18,6 +18,7 @@ function HomePage() {
       <Navbar />
       <FadeIn><Hero /></FadeIn>
       <FadeIn><About /></FadeIn>
+      <FadeIn><Experience /></FadeIn>
       <FadeIn><Skills /></FadeIn>
       <FadeIn><Projects /></FadeIn>
       <FadeIn><DesignWork /></FadeIn>
