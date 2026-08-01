@@ -1,4 +1,4 @@
-import AnimatedGradient from "./components/AnimatedGradient";
+import AnimatedGradient from "./AnimatedGradient";
 
 export default function Hero() {
   return (
